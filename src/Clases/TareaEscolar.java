@@ -3,12 +3,10 @@ package Clases;
 public class TareaEscolar extends Tarea {
 
     private String materia;
-    private String fechaLimite;
 
-    public TareaEscolar(String titulo, String descripcion, Prioridad prioridad, String materia, String fechaLimite) {
-        super(titulo, descripcion, prioridad);
+    public TareaEscolar(String titulo, String descripcion, Prioridad prioridad, String fechaLimite, String materia) {
+        super(titulo, descripcion, prioridad, fechaLimite);
         this.materia = materia;
-        this.fechaLimite = fechaLimite;
     }
 
     public String getMateria() {
@@ -19,12 +17,18 @@ public class TareaEscolar extends Tarea {
         this.materia = materia;
     }
 
-    public String getFechaLimite() {
-        return fechaLimite;
-    }
-
-    public void setFechaLimite(String fechaLimite) {
-        this.fechaLimite = fechaLimite;
+    @Override
+    public String infoTarea() {
+        if (descripcion.equals("")) {
+            return "Titulo: " + titulo + " (" + materia + ")"
+                    + "\nPrioridad:" + prioridad
+                    + "\nFecha Limite: " + fechaLimite;
+        } else {
+            return "Titulo: " + titulo + " (" + materia + ")"
+                    + "\nDescripcion: " + descripcion
+                    + "\nPrioridad:" + prioridad
+                    + "\nFecha Limite: " + fechaLimite;
+        }
     }
 
 }

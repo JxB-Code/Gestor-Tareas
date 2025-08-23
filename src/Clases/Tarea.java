@@ -5,11 +5,13 @@ public abstract class Tarea {
     protected String titulo;
     protected String descripcion;
     protected Prioridad prioridad;
+    protected String fechaLimite;
 
-    public Tarea(String titulo, String descripcion, Prioridad prioridad) {
+    public Tarea(String titulo, String descripcion, Prioridad prioridad, String fechaLimite) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.prioridad = prioridad;
+        this.fechaLimite = fechaLimite;
     }
 
     public String getTitulo() {
@@ -36,11 +38,14 @@ public abstract class Tarea {
         this.prioridad = prioridad;
     }
 
-    @Override
-    public String toString() {
-        return "Titulo: " + titulo
-                + "Descripcion: " + descripcion
-                + "\nPrioridad: " + prioridad.getRango();
+    public String getFechaLimite() {
+        return fechaLimite;
     }
+
+    public void setFechaLimite(String fechaLimite) {
+        this.fechaLimite = fechaLimite;
+    }
+
+    public abstract String infoTarea();
 
 }
