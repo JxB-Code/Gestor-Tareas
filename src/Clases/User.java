@@ -37,5 +37,10 @@ public class User {
     public void setTareas(ArrayList<Tarea> tareas) {
         this.tareas = tareas;
     }
+    
+    @Override
+    public String toString() {
+        return "Nombre: " + nombre;
+    }
 
 }
