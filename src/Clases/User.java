@@ -7,11 +7,15 @@ public class User {
     private String nombre;
     private String password;
     private ArrayList<Tarea> tareas;
+    private int tareasCompletadas;
+    private int tareasPendientes;
 
     public User(String nombre, String password) {
         this.nombre = nombre;
         this.password = password;
         this.tareas = new ArrayList();
+        this.tareasCompletadas = 0;
+        this.tareasPendientes = 0;
     }
 
     public String getNombre() {
@@ -37,10 +41,29 @@ public class User {
     public void setTareas(ArrayList<Tarea> tareas) {
         this.tareas = tareas;
     }
-    
-    @Override
-    public String toString() {
-        return "Nombre: " + nombre;
+
+    public int getTareasCompletadas() {
+        return tareasCompletadas;
     }
 
+    public void setTareasCompletadas() {
+        this.tareasCompletadas++;
+    }
+
+    public int getTareasPendientes() {
+        return tareasPendientes;
+    }
+
+    public void setTareasPendientes() {
+        for (Tarea tarea : this.tareas) {
+            this.tareasPendientes++;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre: " + nombre
+                + "\nPendiente: " + tareasPendientes + "tareas"
+                + "\nCompletadas: " + tareasCompletadas + "tareas";
+    }
 }

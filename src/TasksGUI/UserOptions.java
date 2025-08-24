@@ -4,7 +4,10 @@
  */
 package TasksGUI;
 
+import Clases.User;
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -12,11 +15,12 @@ import java.awt.Color;
  */
 public class UserOptions extends javax.swing.JPanel {
 
-    /**
-     * Creates new form UserOptions
-     */
-    public UserOptions() {
+    private User user = null;
+    
+    public UserOptions(User user) {
         initComponents();
+        this.user = user;
+        
     }
 
     /**
@@ -28,50 +32,104 @@ public class UserOptions extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        configPanel = new javax.swing.JPanel();
+        closeBtn = new javax.swing.JButton();
+        infoBtn = new javax.swing.JButton();
+        infoBtn1 = new javax.swing.JButton();
 
         setBackground(new Color(30, 31, 29));
         setMaximumSize(new java.awt.Dimension(182, 52));
         setMinimumSize(new java.awt.Dimension(182, 52));
         setPreferredSize(new java.awt.Dimension(182, 52));
 
-        jButton1.setBackground(new Color(0, 0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 51, 51));
-        jButton1.setText("Cerrar Sesión");
+        configPanel.setBackground(new java.awt.Color(51, 51, 51));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jButton1)
-                .addContainerGap(47, Short.MAX_VALUE))
+        closeBtn.setBackground(new Color(0, 0, 0, 0));
+        closeBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        closeBtn.setForeground(new java.awt.Color(199, 47, 47));
+        closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/exit.png"))); // NOI18N
+        closeBtn.setText("Cerrar Sesión");
+
+        infoBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        infoBtn.setForeground(new java.awt.Color(255, 255, 255));
+        infoBtn.setText("Cuenta");
+        infoBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                infoBtnMouseClicked(evt);
+            }
+        });
+
+        infoBtn1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        infoBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        infoBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/clean.png"))); // NOI18N
+        infoBtn1.setText("    Limpiar Data");
+        infoBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                infoBtn1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout configPanelLayout = new javax.swing.GroupLayout(configPanel);
+        configPanel.setLayout(configPanelLayout);
+        configPanelLayout.setHorizontalGroup(
+            configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(configPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(closeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(infoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(infoBtn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(328, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+        configPanelLayout.setVerticalGroup(
+            configPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, configPanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(infoBtn)
+                .addGap(18, 18, 18)
+                .addComponent(infoBtn1)
+                .addGap(18, 18, 18)
+                .addComponent(closeBtn)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(configPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(configPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void infoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_infoBtnMouseClicked
+        String cifrada = "";
+        for (int i = 0; i < user.getPassword().length(); i++) {
+            cifrada += "•";
+        }
+        String info = "Nombre:" + user.getNombre() + "\nContraseña: " + cifrada;
+        JOptionPane.showMessageDialog(this, info, "ACCOUNT", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_infoBtnMouseClicked
+
+    private void infoBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_infoBtn1MouseClicked
+        UIManager UI = new UIManager();
+        UI.put("OptionPane.messageForeground", Color.RED);
+        int resultado = JOptionPane.showInternalConfirmDialog(this, "Confirmar Limpieza de Datos", "CONFIRMAR", JOptionPane.OK_CANCEL_OPTION);
+        
+        if (resultado == JOptionPane.OK_OPTION) {
+            user.getTareas().clear();
+            JOptionPane.showMessageDialog(this, "Datos Eliminados!", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_infoBtn1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton closeBtn;
+    private javax.swing.JPanel configPanel;
+    private javax.swing.JButton infoBtn;
+    private javax.swing.JButton infoBtn1;
     // End of variables declaration//GEN-END:variables
 }

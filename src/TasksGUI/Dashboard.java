@@ -2,15 +2,26 @@ package TasksGUI;
 
 import Clases.*;
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class Dashboard extends javax.swing.JFrame {
 
+    public User user = null;
+    public UserOptions config = new UserOptions(user);
+
     public Dashboard(User user) {
+        config = new UserOptions(user);
+        config.setVisible(false);
         initComponents();
-        configBtn(jButton3);
-        jButton3.setText(user.getNombre());
-        jLabel1.setText("Bienvenido, "  + user.getNombre() + ".");
-        
+        configBtn(userConfigBtn);
+        configBtn(exitBtn);
+        configBtn(clearDataBtn);
+        configBtn(accInfoBtn);
+        configOptions.setVisible(false);
+        userConfigBtn.setText(user.getNombre());
+        jLabel1.setText("Bienvenido, " + user.getNombre() + ".");
+
     }
 
     private void configBtn(javax.swing.JButton btn) {
@@ -19,6 +30,7 @@ public class Dashboard extends javax.swing.JFrame {
         btn.setFocusPainted(false);
         btn.setOpaque(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,37 +41,128 @@ public class Dashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         menuBar = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        userConfigBtn = new javax.swing.JButton();
+        configOptions = new javax.swing.JPanel();
+        exitBtn = new javax.swing.JButton();
+        accInfoBtn = new javax.swing.JButton();
+        clearDataBtn = new javax.swing.JButton();
         mainContent = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(924, 556));
         setMinimumSize(new java.awt.Dimension(924, 556));
-        setPreferredSize(new java.awt.Dimension(924, 556));
         setResizable(false);
 
         menuBar.setBackground(new Color(30, 31, 29));
         menuBar.setMaximumSize(new java.awt.Dimension(182, 52));
         menuBar.setMinimumSize(new java.awt.Dimension(182, 52));
 
-        jButton3.setForeground(new java.awt.Color(199, 47, 47));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/user.png"))); // NOI18N
+        userConfigBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        userConfigBtn.setForeground(new java.awt.Color(255, 255, 255));
+        userConfigBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/user.png"))); // NOI18N
+        userConfigBtn.setBorder(null);
+        userConfigBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userConfigBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userConfigBtnMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                userConfigBtnMouseExited(evt);
+            }
+        });
+
+        configOptions.setBackground(new Color(30, 31, 29));
+        configOptions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                configOptionsMouseExited(evt);
+            }
+        });
+
+        exitBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        exitBtn.setForeground(new java.awt.Color(199, 47, 47));
+        exitBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/exit.png"))); // NOI18N
+        exitBtn.setText("     Cerrar Sesión");
+        exitBtn.setBorder(null);
+        exitBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+
+        accInfoBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        accInfoBtn.setForeground(new java.awt.Color(255, 255, 255));
+        accInfoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/info.png"))); // NOI18N
+        accInfoBtn.setText("    Cuenta");
+        accInfoBtn.setBorder(null);
+        accInfoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        accInfoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        accInfoBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accInfoBtnMouseClicked(evt);
+            }
+        });
+        accInfoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accInfoBtnActionPerformed(evt);
+            }
+        });
+
+        clearDataBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        clearDataBtn.setForeground(new java.awt.Color(255, 255, 255));
+        clearDataBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/clean.png"))); // NOI18N
+        clearDataBtn.setText("    Limpiar Data");
+        clearDataBtn.setBorder(null);
+        clearDataBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clearDataBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        clearDataBtn.setMaximumSize(new java.awt.Dimension(94, 16));
+        clearDataBtn.setMinimumSize(new java.awt.Dimension(94, 16));
+        clearDataBtn.setPreferredSize(new java.awt.Dimension(94, 16));
+        clearDataBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clearDataBtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout configOptionsLayout = new javax.swing.GroupLayout(configOptions);
+        configOptions.setLayout(configOptionsLayout);
+        configOptionsLayout.setHorizontalGroup(
+            configOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, configOptionsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(configOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(accInfoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
+        );
+        configOptionsLayout.setVerticalGroup(
+            configOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(configOptionsLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(accInfoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(clearDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout menuBarLayout = new javax.swing.GroupLayout(menuBar);
         menuBar.setLayout(menuBarLayout);
         menuBarLayout.setHorizontalGroup(
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuBarLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(configOptions, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userConfigBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         menuBarLayout.setVerticalGroup(
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuBarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(configOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userConfigBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
 
@@ -76,7 +179,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(mainContentLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         mainContentLayout.setVerticalGroup(
             mainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,9 +194,9 @@ public class Dashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(menuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menuBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(mainContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(mainContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,11 +207,58 @@ public class Dashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void accInfoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accInfoBtnMouseClicked
+        String cifrada = "";
+        for (int i = 0; i < user.getPassword().length(); i++) {
+            cifrada += "•";
+        }
+        String info = "Nombre:" + user.getNombre() + "\nContraseña: " + cifrada;
+        JOptionPane.showMessageDialog(this, info, "ACCOUNT", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_accInfoBtnMouseClicked
+
+    private void clearDataBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearDataBtnMouseClicked
+        if (user.getTareas().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NO HAY DATOS POR LIMPIAR!", "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            UIManager UI = new UIManager();
+            UI.put("OptionPane.messageForeground", Color.RED);
+            int resultado = JOptionPane.showInternalConfirmDialog(this, "Confirmar Limpieza de Datos", "CONFIRMAR", JOptionPane.OK_CANCEL_OPTION);
+
+            if (resultado == JOptionPane.OK_OPTION) {
+                user.getTareas().clear();
+                JOptionPane.showMessageDialog(this, "Datos Eliminados!", "MENSAJE", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_clearDataBtnMouseClicked
+
+    private void userConfigBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userConfigBtnMouseClicked
+        configOptions.setVisible(true);
+    }//GEN-LAST:event_userConfigBtnMouseClicked
+
+    private void accInfoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accInfoBtnActionPerformed
+        JOptionPane.showMessageDialog(this, user, "ACCOUNT INFO", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_accInfoBtnActionPerformed
+
+    private void userConfigBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userConfigBtnMouseExited
+    }//GEN-LAST:event_userConfigBtnMouseExited
+
+    private void configOptionsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_configOptionsMouseExited
+        configOptions.setVisible(false);
+    }//GEN-LAST:event_configOptionsMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton accInfoBtn;
+    private javax.swing.JButton clearDataBtn;
+    private javax.swing.JButton closeBtn;
+    private javax.swing.JPanel configOptions;
+    private javax.swing.JPanel configPanel;
+    private javax.swing.JButton exitBtn;
+    private javax.swing.JButton infoBtn;
+    private javax.swing.JButton infoBtn1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel mainContent;
     private javax.swing.JPanel menuBar;
+    private javax.swing.JButton userConfigBtn;
     // End of variables declaration//GEN-END:variables
 }
