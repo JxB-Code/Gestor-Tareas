@@ -1,16 +1,21 @@
 package GUI;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
+import Clases.Main;
+import Clases.User;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 public class LoginWindow extends javax.swing.JFrame {
 
     public LoginWindow() {
         initComponents();
         configBtn(logBtn);
+        confirmLbl.setVisible(false);
+        showPassword.setFocusPainted(false);
+        showPassword.setBorderPainted(false);
 
         try {
             InputStream is = getClass().getResourceAsStream("/Resources/Fonts/Notedry.ttf");
@@ -29,6 +34,11 @@ public class LoginWindow extends javax.swing.JFrame {
         }
     }
 
+    public void sendInfo(String nombre, String password) {
+        Main main = new Main();
+        main.createUser(nombre, password);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,13 +48,20 @@ public class LoginWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        logPanel = new javax.swing.JPanel();
         loginLbl = new javax.swing.JLabel();
         logBtn = new javax.swing.JButton();
+        nameLbl = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
+        passLbl = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
+        showPassword = new javax.swing.JCheckBox();
+        confirmLbl = new javax.swing.JLabel();
+        questionBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        logPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         loginLbl.setFont(new java.awt.Font("Segoe UI", 0, 50)); // NOI18N
         loginLbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -65,36 +82,131 @@ public class LoginWindow extends javax.swing.JFrame {
                 logBtnMouseExited(evt);
             }
         });
+        logBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logBtnActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        nameLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLbl.setForeground(new java.awt.Color(255, 255, 255));
+        nameLbl.setText("Nombre:");
+
+        nameField.setBackground(Color.BLACK);
+        nameField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        nameField.setForeground(new java.awt.Color(255, 255, 255));
+        nameField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        nameField.setMargin(new java.awt.Insets(2, 6, 2, 10));
+        nameField.setMaximumSize(new java.awt.Dimension(64, 26));
+        nameField.setMinimumSize(new java.awt.Dimension(64, 26));
+        nameField.setPreferredSize(new java.awt.Dimension(64, 26));
+
+        passLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        passLbl.setForeground(new java.awt.Color(255, 255, 255));
+        passLbl.setText("Contraseña:");
+
+        passwordField.setBackground(Color.BLACK);
+        passwordField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        passwordField.setForeground(new java.awt.Color(255, 255, 255));
+        passwordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        passwordField.setMargin(new java.awt.Insets(2, 6, 2, 10));
+        passwordField.setMaximumSize(new java.awt.Dimension(64, 26));
+        passwordField.setPreferredSize(new java.awt.Dimension(3, 26));
+
+        showPassword.setBackground(Color.BLACK);
+        showPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        showPassword.setForeground(new java.awt.Color(255, 255, 255));
+        showPassword.setBorder(null);
+        showPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        showPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/eye_close.png"))); // NOI18N
+        showPassword.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Images/eye_open.png"))); // NOI18N
+        showPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPasswordActionPerformed(evt);
+            }
+        });
+
+        confirmLbl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        confirmLbl.setForeground(new java.awt.Color(255, 0, 0));
+        confirmLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        confirmLbl.setText("    ");
+
+        questionBtn.setBackground(new java.awt.Color(0, 0, 0));
+        questionBtn.setForeground(new java.awt.Color(255, 255, 255));
+        questionBtn.setText("¿NO TIENES UNA CUENTA?");
+        questionBtn.setBorder(null);
+        questionBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        questionBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                questionBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                questionBtnMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout logPanelLayout = new javax.swing.GroupLayout(logPanel);
+        logPanel.setLayout(logPanelLayout);
+        logPanelLayout.setHorizontalGroup(
+            logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(loginLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(390, Short.MAX_VALUE)
-                .addComponent(logBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(384, 384, 384))
+            .addGroup(logPanelLayout.createSequentialGroup()
+                .addGap(237, 237, 237)
+                .addGroup(logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(logPanelLayout.createSequentialGroup()
+                        .addGroup(logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5)
+                        .addGroup(logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                            .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(showPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(confirmLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(250, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logPanelLayout.createSequentialGroup()
+                        .addComponent(logBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(379, 379, 379))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logPanelLayout.createSequentialGroup()
+                        .addComponent(questionBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        logPanelLayout.setVerticalGroup(
+            logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logPanelLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(loginLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                .addGap(59, 59, 59)
+                .addGroup(logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameLbl)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(logPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passLbl)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(confirmLbl)
+                .addGap(18, 18, 18)
                 .addComponent(logBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                .addComponent(questionBtn)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -108,8 +220,65 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void logBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logBtnMouseExited
         configBtn(logBtn);
+        configBtn(questionBtn);
         logBtn.setForeground(Color.WHITE);
     }//GEN-LAST:event_logBtnMouseExited
+
+    private void showPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordActionPerformed
+        if (showPassword.isSelected()) {
+            passwordField.setEchoChar((char) 0);
+        } else {
+            passwordField.setEchoChar('•');
+        }
+    }//GEN-LAST:event_showPasswordActionPerformed
+
+    private void logBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logBtnActionPerformed
+        nameField.setBorder(new LineBorder(Color.WHITE, 1));
+        passwordField.setBorder(new LineBorder(Color.WHITE, 1));
+
+        String nombre = nameField.getText();
+        char[] pass = passwordField.getPassword();
+        String password = new String(pass);
+        boolean login = true;
+        String error = "";
+        if (nombre.isEmpty() || nombre.isBlank()) {
+            error += "| Nombre Vacio |";
+            nameField.setBorder(new LineBorder(Color.RED, 1));
+            login = false;
+        }
+        if (password.isEmpty() || password.isBlank()) {
+            if (error.equals("")) {
+                error += "| Contraseña Vacia |";
+            } else {
+                error += "  | Contraseña Vacia |";
+            }
+
+            passwordField.setBorder(new LineBorder(Color.RED, 1));
+            login = false;
+        }
+        boolean seguir = false;
+        if (login) {
+            seguir = buscarUsuario(nombre, password);
+        } else {
+            confirmLbl.setVisible(true);
+            confirmLbl.setText(error);
+        }
+
+        if (!seguir) {
+            confirmLbl.setText("");
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado!", "NOT FOUND", JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_logBtnActionPerformed
+
+    private void questionBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionBtnMouseEntered
+        questionBtn.setText("<html><u>¿NO TIENES UNA CUENTA?</u></html>");
+    }//GEN-LAST:event_questionBtnMouseEntered
+
+    private void questionBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionBtnMouseExited
+        questionBtn.setText("¿NO TIENES UNA CUENTA?");
+    }//GEN-LAST:event_questionBtnMouseExited
 
     private void configBtn(javax.swing.JButton btn) {
         btn.setContentAreaFilled(false);
@@ -118,10 +287,28 @@ public class LoginWindow extends javax.swing.JFrame {
         btn.setOpaque(false);
     }
 
+    private boolean buscarUsuario(String nombre, String password) {
+        boolean found = false;
+        for (User user : Main.users) {
+            if (user.getNombre().equals(nombre) && user.getPassword().equals(password)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel confirmLbl;
     private javax.swing.JButton logBtn;
+    private javax.swing.JPanel logPanel;
     private javax.swing.JLabel loginLbl;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JLabel nameLbl;
+    private javax.swing.JLabel passLbl;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JButton questionBtn;
+    private javax.swing.JCheckBox showPassword;
     // End of variables declaration//GEN-END:variables
 }
